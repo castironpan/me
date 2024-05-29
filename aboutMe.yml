@@ -1,12 +1,8 @@
 # This file is SUPER IMPORTANT. It's what joins your github name to your
 # student number, and that's what makes sure that you get a mark.
 
-name: Casmie Tee
-studentNumber: z5470690
-officialEmail: z5470690@ad.unsw.edu.au
-contactEmail:
-  firstBit: casmietee2003
-  otherBit: gmail.com
+first_name: Casmie
+studentNumber: z5470690 # if you're not at UNSW, your org name, e.g. BVN
 # accounts
 stackOverflowLink: https://stackoverflow.com/users/25306307/casmie-tee
 github: castironpan
