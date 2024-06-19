@@ -233,7 +233,7 @@ def loops_5():
     for i in range(10):
         row = []
         for j in range(5):
-            row.append("(i" + str(i) + "," + "j" + str(j) + ")")
+            row.append("(i" + str(i) + ", " + "j" + str(j) + ")")
         num_list.append(row)
 
     return num_list
@@ -293,15 +293,20 @@ def loops_7():
     """
     pyramid = []
 
-    x = 5
+    x = 9
 
-    for i in range(x):
+    for i in range(5):
+        left = x - (int(x / 2) + 1) - i
+        right = x - (int(x / 2) + 1) + i
         row = []
-        for j in reversed(9):
-            
-            row.append('*')
-                
+        for j in range(x):
+            if j >= left and j <= right:
+                row.append('*')
+            else:
+                row.append(' ')
+
         pyramid.append(row)
+
     return pyramid
 
 
@@ -315,8 +320,8 @@ if __name__ == "__main__":
         minitest(is_odd, [1], True)
         minitest(is_odd, [4], False)
         minitest(fix_it, [True, True], "No Problem")
-        minitest(fix_it, [True, False], "WD-40")
-        minitest(fix_it, [False, True], "Duct Tape")
+        minitest(fix_it, [True, False], "Duct Tape")
+        minitest(fix_it, [False, True], "WD-40")
         minitest(fix_it, [False, False], "No Problem")
         little_printer(loops_preview(), "loops_preview")
         little_printer(loops_1a(), "loops_1a")
@@ -332,3 +337,6 @@ if __name__ == "__main__":
         print("⚠"*20, "\nWe're looking for a module that's missing. That's probably a problem that a tutor needs to figure out.\n")
         print(e)
         print("⚠"*20)
+
+
+
