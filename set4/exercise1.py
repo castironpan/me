@@ -16,7 +16,7 @@ if LOCAL != CWD:
     Be careful that your relative paths are
     relative to where you think they are
     LOCAL: {LOCAL}
-    CWD: "CWD
+    CWD: {CWD}
     """
     )
 
@@ -34,13 +34,22 @@ def get_some_details():
          might need to go deep. E.g to get the name title you would need to:
          data["results"][0]["name"]["title"]
          Look out for the type of brackets. [] means list and {} means
-         dictionary, you'll need integer indeces for lists, and named keys for
+          dictionary, you'll need integer indeces for lists, and named keys for
          dictionaries.
     """
     json_data = open(LOCAL + "/lazyduck.json").read()
 
     data = json.loads(json_data)
-    return {"lastName": None, "password": None, "postcodePlusID": None}
+
+    lastName = data['results'][0]['name']['last']
+
+    password = data['results'][0]['login']['password']
+    postcode = data['results'][0]['location']['postcode'] 
+    person_id = data['results'][0]['id']['value']
+
+    int(person_id)
+
+    return {"lastName": lastName , "password": password , "postcodePlusID": postcode + int(person_id)}
 
 
 def wordy_pyramid():
@@ -79,6 +88,14 @@ def wordy_pyramid():
     """
     pyramid = []
 
+    for i in range(3, 20, 2):
+        randomWordGen = requests.get(f'https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}')
+        pyramid.append(randomWordGen.text)
+    
+    for i in range(20, 3, -2):
+        randomWordGen = requests.get(f'https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={i}')
+        pyramid.append(randomWordGen.text)
+
     return pyramid
 
 
@@ -96,13 +113,22 @@ def pokedex(low=1, high=5):
          get very long. If you are accessing a thing often, assign it to a
          variable and then future access will be easier.
     """
-    id = 5
-    url = f"https://pokeapi.co/api/v2/pokemon/{id}"
-    r = requests.get(url)
-    if r.status_code is 200:
-        the_json = json.loads(r.text)
+    pokeList = []
 
-    return {"name": None, "weight": None, "height": None}
+    for id in range(low, high):
+        url = f"https://pokeapi.co/api/v2/pokemon/{id}"
+        req = requests.get(url)
+        the_json = json.loads(req.text)
+        name = the_json["forms"][0]["name"]
+        height = the_json["height"]
+        weight = the_json["weight"]
+
+        pokemonDetails = {"name": name, "height": height, "weight": weight}
+        pokeList.append(pokemonDetails)
+
+    tallestPokemon = max(pokeList, key = lambda x: x['height'])
+
+    return tallestPokemon
 
 
 def diarist():
@@ -122,6 +148,28 @@ def diarist():
 
     NOTE: this function doesn't return anything. It has the _side effect_ of modifying the file system
     """
+
+    # read file, 
+    # count the number of times M10 P1 is being used 
+    # write it to a new file called lasers.pew 
+
+    file_path = r"..\me\set4\Trispokedovetiles(laser).gcode"
+
+    with open(file_path, 'r') as g_code:
+        g_code_lines = g_code.readlines()
+
+    lasers = 0
+
+    for line in g_code_lines:
+        if "M10 P1" in line:
+            lasers += 1
+
+    lasers_file_path = r"..\me\set4\lasers.pew"
+
+    lasers_file = open(lasers_file_path, 'w')
+    lasers_file.write(f"{6}")
+    lasers_file.close()
+
     pass
 
 

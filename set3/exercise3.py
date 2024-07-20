@@ -29,9 +29,70 @@ def advancedGuessingGame():
     purpose if you can!
     """
 
+    # do try catch for non int inputs 
+    #
+
+    print("\nWelcome to the guessing game!")
+    lowerBound = input("Enter a lower bound: ")
+
+    while intValidityChecker(lowerBound) == False:
+      lowerBound = input("Enter a VALID lower bound pleet: ")
+    
+    print(f"OK then, lower bound is: {lowerBound}")
+    lowerBound = int(lowerBound)
+
+    upperBound = input("Now, enter an upper bound: ")
+    
+    while intValidityChecker(upperBound) == False:
+      upperBound = input("Enter a VALID upper bound pleet: ")
+
+    upperBound = int(upperBound)
+
+    while upperBound <= lowerBound:
+      print("Upper Bound can't be the same or lower than the lower bound!")
+      upperBound = input("Enter an upper bound: ")
+
+      while intValidityChecker(upperBound) == False:
+        upperBound = input("Enter a VALID upper bound pleet: ")
+
+      upperBound = int(upperBound)
+
+    print(f"OK then you will be guessing, a number between {lowerBound} and {upperBound}!")
+
+    actualNumber = random.randint(lowerBound, upperBound)
+
+    guessed = False
+
+    while not guessed:
+        guessedNumber  = input("Guess a number: ")
+
+        while intValidityChecker(guessedNumber) == False:
+          guessedNumber = input("Enter a VALID guess pleet: ")
+
+        guessedNumber = int(guessedNumber)
+
+        print(f"You guessed {guessedNumber},")
+        
+        if guessedNumber == actualNumber:
+            print(f"It was {actualNumber}")
+            guessed = True
+        elif guessedNumber < actualNumber:
+            print("Too small, try again : '(")
+        else:
+            print("Too big, try again : '(")
+
     return "You got it!"
     # the tests are looking for the exact string "You got it!". Don't modify that!
 
+def intValidityChecker(var):
+
+  try:
+    int(var)
+  except ValueError:
+    print('NOT A VALID INTEGER !!')
+    return False
+  else:
+    return True
 
 if __name__ == "__main__":
     print(advancedGuessingGame())
