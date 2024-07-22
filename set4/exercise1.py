@@ -167,7 +167,7 @@ def diarist():
     lasers_file_path = r"..\me\set4\lasers.pew"
 
     lasers_file = open(lasers_file_path, 'w')
-    lasers_file.write(f"{6}")
+    lasers_file.write(f"{lasers}")
     lasers_file.close()
 
     pass
