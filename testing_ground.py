@@ -182,4 +182,4 @@ while (i < 200):
 
 print(i)
 
-print(words)
+print(words[0][0].upper() + " ".join(words) + '.')

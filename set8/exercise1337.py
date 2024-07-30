@@ -317,7 +317,7 @@ def fast_filler(number_of_words=200) -> str:
         words.append(dict_file_data[key][random_index])
         i += 1
 
-    return " ".join(words)
+    return words[0][0].upper() + " ".join(words) + '.'
 
 
 if __name__ == "__main__":
