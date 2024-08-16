@@ -6,3 +6,7 @@ variable - you need a variable to store information, for example an int type var
 
 values
 if statements
+iteration 
+
+defining lists and dictionaries
+
